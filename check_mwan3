@@ -1,0 +1,19 @@
+#/bin/ash
+
+status="`mwan3 status | grep interface`"
+
+lines="`echo \"$status\" | wc -l`"
+online="`echo \"$status\" | grep online | wc -l`"
+
+if [ $online -eq $lines ]; then
+	echo "OK - $status"
+	result=0
+elif [ $online -ge 1 ]; then
+	echo "WARN - $status"
+	result=1
+else
+	echo "ERROR - $status"
+	result=2
+fi
+exit $result
+
